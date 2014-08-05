@@ -12,7 +12,6 @@
 @interface ViewController () <MKMapViewDelegate>
 @property NSArray *busStops;
 @property (strong, nonatomic) IBOutlet MKMapView *mapView;
-//@property MKPointAnnotation *pointAnnotation;
 @end
 
 @implementation ViewController
@@ -28,16 +27,14 @@
         NSDictionary *resp = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
         self.busStops = resp[@"row"];
         NSDictionary *busStopDesc;
-//        NSDictionary *busStopLoc;
-//        NSDictionary *busStopDesc = [self.busStops objectAtIndex:0];
-//        NSDictionary *busStopLoc = busStopDesc[@"location"];
-//        NSLog(@"Bus stops: %@", busStopLoc);
 
         for (int i = 0; i < self.busStops.count; i++) {
             pointAnnotation = [[MKPointAnnotation alloc]init];
-
             busStopDesc = [self.busStops objectAtIndex:i];
-//            busStopLoc = busStopDesc[@"location"];
+            pointAnnotation.title = busStopDesc[@"cta_stop_name"];
+            pointAnnotation.subtitle = [NSString stringWithFormat:@"Route(s): %@", busStopDesc[@"routes"]];
+            NSLog(@"Description %@", busStopDesc);
+
             coordinate.latitude = [busStopDesc[@"latitude"] doubleValue];
             coordinate.longitude = [busStopDesc[@"longitude"] doubleValue];
             if (coordinate.longitude > 0){
@@ -45,9 +42,40 @@
             }
             pointAnnotation.coordinate = coordinate;
             [self.mapView addAnnotation:pointAnnotation];
+
+//          Autosize the map to show all the pins in it, if you want to include the user location replace the first line with these two
+//            MKMapPoint annotationPoint = MKMapPointForCoordinate(mapView.userLocation.coordinate);
+//            MKMapRect zoomRect = MKMapRectMake(annotationPoint.x, annotationPoint.y, 0.1, 0.1);
+
+            MKMapRect zoomRect = MKMapRectNull;
+            for (id <MKAnnotation> annotation in self.mapView.annotations)
+            {
+                MKMapPoint annotationPoint = MKMapPointForCoordinate(annotation.coordinate);
+                MKMapRect pointRect = MKMapRectMake(annotationPoint.x, annotationPoint.y, 0.5, 0.5);
+                zoomRect = MKMapRectUnion(zoomRect, pointRect);
+            }
+            [self.mapView setVisibleMapRect:zoomRect animated:YES];
         }
     }];
 }
 
+-(MKAnnotationView *)mapView:(MKMapView *)mapView viewForAnnotation:(id<MKAnnotation>)annotation {
+    MKPinAnnotationView *pin = [[MKPinAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:nil];
+    pin.canShowCallout = YES;
+    pin.rightCalloutAccessoryView = [UIButton buttonWithType:UIButtonTypeDetailDisclosure];
+    return pin;
+}
+
+-(void)mapView:(MKMapView *)mapView annotationView:(MKAnnotationView *)view calloutAccessoryControlTapped:(UIControl *)control {
+    CLLocationCoordinate2D centerCoordinate = view.annotation.coordinate;
+    MKCoordinateSpan coordinateSpan;
+    coordinateSpan.latitudeDelta = 0.01;
+    coordinateSpan.longitudeDelta = 0.01;
+    MKCoordinateRegion region;
+    region.center = centerCoordinate;
+    region.span = coordinateSpan;
+
+    [self.mapView setRegion:region animated:YES];
+}
 
 @end
