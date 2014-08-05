@@ -33,7 +33,6 @@
             busStopDesc = [self.busStops objectAtIndex:i];
             pointAnnotation.title = busStopDesc[@"cta_stop_name"];
             pointAnnotation.subtitle = [NSString stringWithFormat:@"Route(s): %@", busStopDesc[@"routes"]];
-            NSLog(@"Description %@", busStopDesc);
 
             coordinate.latitude = [busStopDesc[@"latitude"] doubleValue];
             coordinate.longitude = [busStopDesc[@"longitude"] doubleValue];
