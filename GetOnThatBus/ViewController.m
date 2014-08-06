@@ -35,6 +35,14 @@
             busStopDesc = [self.busStops objectAtIndex:i];
             pointAnnotation.title = busStopDesc[@"cta_stop_name"];
             pointAnnotation.subtitle = [NSString stringWithFormat:@"Route(s): %@", busStopDesc[@"routes"]];
+            NSString *intermodal = [NSString stringWithFormat: @"%@", busStopDesc[@"inter_modal"]];
+            if (![intermodal isEqual:@"(null)"]) {
+                if ([intermodal isEqualToString:@"Metra"]) {
+                    pointAnnotation.image = [UIImage imageNamed:@"metra"];
+                } else if ([intermodal isEqualToString:@"Pace"]) {
+                    pointAnnotation.image = [UIImage imageNamed:@"pace"];
+                }
+            }
 
             coordinate.latitude = [busStopDesc[@"latitude"] doubleValue];
             coordinate.longitude = [busStopDesc[@"longitude"] doubleValue];
@@ -44,28 +52,35 @@
             pointAnnotation.coordinate = coordinate;
             pointAnnotation.busStopInfo = busStopDesc;
             [self.mapView addAnnotation:pointAnnotation];
-
-//          Autosize the map to show all the pins in it, if you want to include the user location replace the first line with these two
-//            MKMapPoint annotationPoint = MKMapPointForCoordinate(mapView.userLocation.coordinate);
-//            MKMapRect zoomRect = MKMapRectMake(annotationPoint.x, annotationPoint.y, 0.1, 0.1);
-
-            MKMapRect zoomRect = MKMapRectNull;
-            for (id <MKAnnotation> annotation in self.mapView.annotations)
-            {
-                MKMapPoint annotationPoint = MKMapPointForCoordinate(annotation.coordinate);
-                MKMapRect pointRect = MKMapRectMake(annotationPoint.x, annotationPoint.y, 0.5, 0.5);
-                zoomRect = MKMapRectUnion(zoomRect, pointRect);
-            }
-            [self.mapView setVisibleMapRect:zoomRect animated:YES];
         }
+        //          Autosize the map to show all the pins in it, if you want to include the user location replace the first line with these two
+        //            MKMapPoint annotationPoint = MKMapPointForCoordinate(mapView.userLocation.coordinate);
+        //            MKMapRect zoomRect = MKMapRectMake(annotationPoint.x, annotationPoint.y, 0.1, 0.1);
+
+        MKMapRect zoomRect = MKMapRectNull;
+        for (id <MKAnnotation> annotation in self.mapView.annotations)
+        {
+            MKMapPoint annotationPoint = MKMapPointForCoordinate(annotation.coordinate);
+            MKMapRect pointRect = MKMapRectMake(annotationPoint.x, annotationPoint.y, 0.5, 0.5);
+            zoomRect = MKMapRectUnion(zoomRect, pointRect);
+        }
+        [self.mapView setVisibleMapRect:zoomRect animated:YES];
     }];
 }
 
 -(MKAnnotationView *)mapView:(MKMapView *)mapView viewForAnnotation:(id<MKAnnotation>)annotation {
-    MKPinAnnotationView *pin = [[MKPinAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:nil];
-    pin.canShowCallout = YES;
-    pin.rightCalloutAccessoryView = [UIButton buttonWithType:UIButtonTypeDetailDisclosure];
-    return pin;
+    if ([annotation isKindOfClass:[CustomAnnotation class]]) {
+        CustomAnnotation *myAnnotation = (CustomAnnotation *)annotation;
+        MKPinAnnotationView *pin = [[MKPinAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:nil];
+        pin.canShowCallout = YES;
+        pin.rightCalloutAccessoryView = [UIButton buttonWithType:UIButtonTypeDetailDisclosure];
+        if ([myAnnotation image] != nil) {
+            pin.image = [myAnnotation image];
+        }
+        return pin;
+    } else {
+        return nil;
+    }
 }
 
 -(void)mapView:(MKMapView *)mapView annotationView:(MKAnnotationView *)view calloutAccessoryControlTapped:(UIControl *)control {

@@ -10,5 +10,6 @@
 
 @interface CustomAnnotation : MKPointAnnotation
 @property NSDictionary *busStopInfo;
+@property UIImage *image;
 
 @end
