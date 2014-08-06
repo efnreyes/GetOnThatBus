@@ -23,6 +23,7 @@
 		F93F04D919915DCF00CB66D8 /* GetOnThatBusTests.m in Sources */ = {isa = PBXBuildFile; fileRef = F93F04D819915DCF00CB66D8 /* GetOnThatBusTests.m */; };
 		F93F04E319915DF200CB66D8 /* CheckMate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F93F04E219915DF200CB66D8 /* CheckMate.framework */; };
 		F93F04E519915FA900CB66D8 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F93F04E419915FA900CB66D8 /* MapKit.framework */; };
+		F93F04E819918B7300CB66D8 /* BusStopDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F93F04E719918B7300CB66D8 /* BusStopDetailViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -57,6 +58,8 @@
 		F93F04D819915DCF00CB66D8 /* GetOnThatBusTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GetOnThatBusTests.m; sourceTree = "<group>"; };
 		F93F04E219915DF200CB66D8 /* CheckMate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = CheckMate.framework; sourceTree = "<group>"; };
 		F93F04E419915FA900CB66D8 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
+		F93F04E619918B7300CB66D8 /* BusStopDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BusStopDetailViewController.h; sourceTree = "<group>"; };
+		F93F04E719918B7300CB66D8 /* BusStopDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BusStopDetailViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -127,6 +130,8 @@
 				F93F04C319915DCF00CB66D8 /* ViewController.m */,
 				F93F04C519915DCF00CB66D8 /* Images.xcassets */,
 				F93F04B419915DCF00CB66D8 /* Supporting Files */,
+				F93F04E619918B7300CB66D8 /* BusStopDetailViewController.h */,
+				F93F04E719918B7300CB66D8 /* BusStopDetailViewController.m */,
 			);
 			path = GetOnThatBus;
 			sourceTree = "<group>";
@@ -259,6 +264,7 @@
 			files = (
 				F93F04C419915DCF00CB66D8 /* ViewController.m in Sources */,
 				F93F04BE19915DCF00CB66D8 /* AppDelegate.m in Sources */,
+				F93F04E819918B7300CB66D8 /* BusStopDetailViewController.m in Sources */,
 				F93F04BA19915DCF00CB66D8 /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -472,6 +478,7 @@
 				F93F04DE19915DCF00CB66D8 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		F93F04DF19915DCF00CB66D8 /* Build configuration list for PBXNativeTarget "GetOnThatBusTests" */ = {
 			isa = XCConfigurationList;
@@ -480,6 +487,7 @@
 				F93F04E119915DCF00CB66D8 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
