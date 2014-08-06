@@ -7,6 +7,8 @@
 //
 
 #import "ViewController.h"
+#import "BusStopDetailViewController.h"
+#import "CustomAnnotation.h"
 #import <MapKit/MapKit.h>
 
 @interface ViewController () <MKMapViewDelegate>
@@ -23,13 +25,13 @@
     NSURLRequest *request = [NSURLRequest requestWithURL:url];
     [NSURLConnection sendAsynchronousRequest:request queue:[NSOperationQueue mainQueue] completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
         CLLocationCoordinate2D coordinate;
-        MKPointAnnotation *pointAnnotation;
+        CustomAnnotation *pointAnnotation;
         NSDictionary *resp = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
         self.busStops = resp[@"row"];
         NSDictionary *busStopDesc;
 
         for (int i = 0; i < self.busStops.count; i++) {
-            pointAnnotation = [[MKPointAnnotation alloc]init];
+            pointAnnotation = [[CustomAnnotation alloc]init];
             busStopDesc = [self.busStops objectAtIndex:i];
             pointAnnotation.title = busStopDesc[@"cta_stop_name"];
             pointAnnotation.subtitle = [NSString stringWithFormat:@"Route(s): %@", busStopDesc[@"routes"]];
@@ -40,6 +42,7 @@
                 coordinate.longitude = coordinate.longitude *-1;
             }
             pointAnnotation.coordinate = coordinate;
+            pointAnnotation.busStopInfo = busStopDesc;
             [self.mapView addAnnotation:pointAnnotation];
 
 //          Autosize the map to show all the pins in it, if you want to include the user location replace the first line with these two
@@ -74,8 +77,18 @@
     region.center = centerCoordinate;
     region.span = coordinateSpan;
 
-    [self.mapView setRegion:region animated:YES];
+    [self.mapView setRegion:region animated:NO];
+    [self performSegueWithIdentifier:@"busStopDetailSegue" sender:view];
+
 }
 
+-(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    if ([segue.identifier isEqualToString:@"busStopDetailSegue"]) {
+        BusStopDetailViewController *bdvc = (BusStopDetailViewController *)segue.destinationViewController;
+        MKAnnotationView *view = (MKAnnotationView *) sender;
+        CustomAnnotation *ca = (CustomAnnotation *)view.annotation;
+        bdvc.busStopDesc = ca.busStopInfo;
+    }
+}
 
 @end

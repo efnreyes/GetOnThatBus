@@ -9,6 +9,9 @@
 #import "BusStopDetailViewController.h"
 
 @interface BusStopDetailViewController ()
+@property (strong, nonatomic) IBOutlet UILabel *addressLabel;
+@property (strong, nonatomic) IBOutlet UILabel *routesLabel;
+@property (strong, nonatomic) IBOutlet UILabel *intermodalLabel;
 
 @end
 
@@ -26,7 +29,21 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
+    self.title = [NSString stringWithFormat: @"%@", self.busStopDesc[@"cta_stop_name"]];
+    self.addressLabel.text = [NSString stringWithFormat: @"%@", self.busStopDesc[@"cta_stop_name"]];
+    self.routesLabel.text = [NSString stringWithFormat: @"%@", self.busStopDesc[@"routes"]];
+    NSString *intermodal = [NSString stringWithFormat: @"%@", self.busStopDesc[@"inter_modal"]];
+    if (![intermodal isEqual:@"(null)"]) {
+        if ([intermodal isEqualToString:@"Metra"]) {
+            intermodal = @"Metra commuter rail line";
+        } else if ([intermodal isEqualToString:@"Pace"]) {
+            intermodal = @"Pace bus system";
+        }
+    } else {
+        intermodal = @"";
+    }
+    self.intermodalLabel.text = intermodal;
+    
 }
 
 - (void)didReceiveMemoryWarning

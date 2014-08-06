@@ -9,5 +9,5 @@
 #import <UIKit/UIKit.h>
 
 @interface BusStopDetailViewController : UIViewController
-
+@property NSDictionary *busStopDesc;
 @end

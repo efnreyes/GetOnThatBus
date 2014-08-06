@@ -24,6 +24,7 @@
 		F93F04E319915DF200CB66D8 /* CheckMate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F93F04E219915DF200CB66D8 /* CheckMate.framework */; };
 		F93F04E519915FA900CB66D8 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F93F04E419915FA900CB66D8 /* MapKit.framework */; };
 		F93F04E819918B7300CB66D8 /* BusStopDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F93F04E719918B7300CB66D8 /* BusStopDetailViewController.m */; };
+		F93F04EB1991D54300CB66D8 /* CustomAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = F93F04EA1991D54300CB66D8 /* CustomAnnotation.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -60,6 +61,8 @@
 		F93F04E419915FA900CB66D8 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		F93F04E619918B7300CB66D8 /* BusStopDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BusStopDetailViewController.h; sourceTree = "<group>"; };
 		F93F04E719918B7300CB66D8 /* BusStopDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BusStopDetailViewController.m; sourceTree = "<group>"; };
+		F93F04E91991D54300CB66D8 /* CustomAnnotation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomAnnotation.h; sourceTree = "<group>"; };
+		F93F04EA1991D54300CB66D8 /* CustomAnnotation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomAnnotation.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -132,6 +135,8 @@
 				F93F04B419915DCF00CB66D8 /* Supporting Files */,
 				F93F04E619918B7300CB66D8 /* BusStopDetailViewController.h */,
 				F93F04E719918B7300CB66D8 /* BusStopDetailViewController.m */,
+				F93F04E91991D54300CB66D8 /* CustomAnnotation.h */,
+				F93F04EA1991D54300CB66D8 /* CustomAnnotation.m */,
 			);
 			path = GetOnThatBus;
 			sourceTree = "<group>";
@@ -262,6 +267,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F93F04EB1991D54300CB66D8 /* CustomAnnotation.m in Sources */,
 				F93F04C419915DCF00CB66D8 /* ViewController.m in Sources */,
 				F93F04BE19915DCF00CB66D8 /* AppDelegate.m in Sources */,
 				F93F04E819918B7300CB66D8 /* BusStopDetailViewController.m in Sources */,
